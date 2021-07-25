@@ -107,23 +107,24 @@ random.shuffle(fixed_api)
 final_list=fixed_api
 
 #实际运行
-if int(app_num) > 1:
-    print('多账户/应用模式下，日志报告里可能会出现一堆***，属于正常情况')
-print("如果api数量少于规定值，则是api赋权没有弄好，或者是onedrive还没有初始化成功。前者请重新赋权并获取微软密钥替换，后者请稍等几天")
-print('共 '+str(app_num)+r' 账号/应用，'+r'每个账号/应用 '+str(config['rounds'])+' 轮') 
-for r in range(1,config['rounds']+1):
-    if config['rounds_delay'][0] == 1:
-        time.sleep(random.randint(config['rounds_delay'][1],config['rounds_delay'][2]))		
-    for a in range(1, int(app_num)+1):
-        if config['app_delay'][0] == 1:
-            time.sleep(random.randint(config['app_delay'][1],config['app_delay'][2]))
-        client_id=os.getenv('CLIENT_ID_'+str(a))
-        client_secret=os.getenv('CLIENT_SECRET_'+str(a))
-        print('\n'+'应用/账号 '+str(a)+' 的第'+str(r)+'轮 '+time.asctime(time.localtime(time.time()))+'\n')
-        if config['api_rand'] == 1:
-            print("已开启随机顺序,共十二个api,自己数")
-            apilist=final_list
-        else:
-            print("原版顺序,共十个api,自己数")
-            apilist=[5,9,8,1,20,24,23,6,21,22]
-        runapi(apilist,a)
+if(random.random()>0.5):
+    if int(app_num) > 1:
+        print('多账户/应用模式下，日志报告里可能会出现一堆***，属于正常情况')
+    print("如果api数量少于规定值，则是api赋权没有弄好，或者是onedrive还没有初始化成功。前者请重新赋权并获取微软密钥替换，后者请稍等几天")
+    print('共 '+str(app_num)+r' 账号/应用，'+r'每个账号/应用 '+str(config['rounds'])+' 轮') 
+    for r in range(1,config['rounds']+1):
+        if config['rounds_delay'][0] == 1:
+            time.sleep(random.randint(config['rounds_delay'][1],config['rounds_delay'][2]))		
+        for a in range(1, int(app_num)+1):
+            if config['app_delay'][0] == 1:
+                time.sleep(random.randint(config['app_delay'][1],config['app_delay'][2]))
+            client_id=os.getenv('CLIENT_ID_'+str(a))
+            client_secret=os.getenv('CLIENT_SECRET_'+str(a))
+            print('\n'+'应用/账号 '+str(a)+' 的第'+str(r)+'轮 '+time.asctime(time.localtime(time.time()))+'\n')
+            if config['api_rand'] == 1:
+                print("已开启随机顺序,共十二个api,自己数")
+                apilist=final_list
+            else:
+                print("原版顺序,共十个api,自己数")
+                apilist=[5,9,8,1,20,24,23,6,21,22]
+            runapi(apilist,a)
