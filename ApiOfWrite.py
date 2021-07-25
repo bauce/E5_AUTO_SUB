@@ -185,45 +185,46 @@ headers={'Accept-Language': 'zh-CN'}
 weather=req.get(r'http://wttr.in/'+city+r'?format=4&?m',headers=headers).text
 
 #实际运行
-for a in range(1, int(app_num)+1):
-    print('账号 '+str(a))
-    print('发送邮件 ( 邮箱单独运行，每次运行只发送一次，防止封号 )')
-    if emailaddress != '':
-        SendEmail(a,'weather',weather)
-        print('')
-#其他api
-for _ in range(1,config['rounds']+1):
-    if config['rounds_delay'][0] == 1:
-        time.sleep(random.randint(config['rounds_delay'][1],config['rounds_delay'][2]))     
-    print('第 '+str(_)+' 轮\n')        
+if(random.random()>0.5):
     for a in range(1, int(app_num)+1):
-        if config['app_delay'][0] == 1:
-            time.sleep(random.randint(config['app_delay'][1],config['app_delay'][2]))        
-        print('账号 '+str(a))    
-        #生成随机名称
-        filesname='QAQ'+str(random.randint(1,600))+r'.xlsx'
-        #新建随机xlsx文件
-        xls = xlsxwriter.Workbook(filesname)
-        xlssheet = xls.add_worksheet()
-        for s1 in range(0,4):
-            for s2 in range(0,4):
-                xlssheet.write(s1,s2,str(random.randint(1,600)))
-        xls.close()
-        xlspath=sys.path[0]+r'/'+filesname
-        print('上传文件 ( 可能会偶尔出现创建上传失败的情况 ) ')
-        with open(xlspath,'rb') as f:
-            UploadFile(a,filesname,f)
-        choosenum = random.sample(range(1, 5),2)
-        if config['allstart'] == 1 or 1 in choosenum:
-            print('excel文件操作')
-            excelWrite(a,filesname,'QVQ'+str(random.randint(1,600)))
-        if config['allstart'] == 1 or 2 in choosenum:
-            print('team操作')
-            teamWrite(a,'QVQ'+str(random.randint(1,600)))
-        if config['allstart'] == 1 or 3 in choosenum:
-            print('task操作')
-            taskWrite(a,'QVQ'+str(random.randint(1,600)))
-        if config['allstart'] == 1 or 4 in choosenum:
-            print('onenote操作')
-            onenoteWrite(a,'QVQ'+str(random.randint(1,600)))
-        print('-')
+        print('账号 '+str(a))
+        print('发送邮件 ( 邮箱单独运行，每次运行只发送一次，防止封号 )')
+        if emailaddress != '':
+            SendEmail(a,'weather',weather)
+            print('')
+    #其他api
+    for _ in range(1,config['rounds']+1):
+        if config['rounds_delay'][0] == 1:
+            time.sleep(random.randint(config['rounds_delay'][1],config['rounds_delay'][2]))     
+        print('第 '+str(_)+' 轮\n')        
+        for a in range(1, int(app_num)+1):
+            if config['app_delay'][0] == 1:
+                time.sleep(random.randint(config['app_delay'][1],config['app_delay'][2]))        
+            print('账号 '+str(a))    
+            #生成随机名称
+            filesname='QAQ'+str(random.randint(1,600))+r'.xlsx'
+            #新建随机xlsx文件
+            xls = xlsxwriter.Workbook(filesname)
+            xlssheet = xls.add_worksheet()
+            for s1 in range(0,4):
+                for s2 in range(0,4):
+                    xlssheet.write(s1,s2,str(random.randint(1,600)))
+            xls.close()
+            xlspath=sys.path[0]+r'/'+filesname
+            print('上传文件 ( 可能会偶尔出现创建上传失败的情况 ) ')
+            with open(xlspath,'rb') as f:
+                UploadFile(a,filesname,f)
+            choosenum = random.sample(range(1, 5),2)
+            if config['allstart'] == 1 or 1 in choosenum:
+                print('excel文件操作')
+                excelWrite(a,filesname,'QVQ'+str(random.randint(1,600)))
+            if config['allstart'] == 1 or 2 in choosenum:
+                print('team操作')
+                teamWrite(a,'QVQ'+str(random.randint(1,600)))
+            if config['allstart'] == 1 or 3 in choosenum:
+                print('task操作')
+                taskWrite(a,'QVQ'+str(random.randint(1,600)))
+            if config['allstart'] == 1 or 4 in choosenum:
+                print('onenote操作')
+                onenoteWrite(a,'QVQ'+str(random.randint(1,600)))
+            print('-')
